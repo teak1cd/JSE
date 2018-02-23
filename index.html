@@ -2,8 +2,26 @@
   <head>
     <title>
     </title>
+
+
+    <script src="js/require.js"></script>
+
+
+    <!-- js/require.js MUST be first to load, all other files use it -->
     <script src="js/jse.base.js"></script>
+    <script src="js/JSEUTIL.js"></script>
+    <script src="js/subpackage/jse.render.js"></script>
+    <script src="js/subpackage/jse.thread.js"></script>
+    <script src="js/subpackage/jse.image.js"></script>
+    <script src="js/subpackage/jse.math.js"></script>
+
+
+
+    <!-- js/example.js and your project files sould load LAST -->
+    <script src="js/example.js"></script>
   </head>
   <body>
+      <div id=custom_canvas_loc></div>
+      <div id=custom_content></div>
   </body>
 </html>

@@ -1,0 +1,7 @@
+(function(module){
+  module.export=new module.package("JSE.subpackage.render",class {
+  constructor(){
+
+  }
+});
+})(module);
