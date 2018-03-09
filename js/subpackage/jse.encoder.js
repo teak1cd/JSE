@@ -5,7 +5,7 @@
         this.redux=radux||7;
     }
     check(){
-      if(this.redux%1===0)throw this.redux+"!=<int>";
+      if((this.redux%1)!==0)throw this.redux+"!=<int>";
     }
     encode(fileContent){
         this.check();
