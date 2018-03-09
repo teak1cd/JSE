@@ -4,7 +4,11 @@
     constructor(radux){
         this.redux=radux||7;
     }
+    check(){
+      if(this.redux%1)throw this.redux+"!=<int>";
+    }
     encode(fileContent){
+        this.check();
         var chars = fileContent.split('');
         var vals = [];
         chars.forEach((a)=>{
@@ -22,6 +26,7 @@
         return out;
       }
       decode(fileContent){
+        this.check();
         function Grab(len){
           var r = fileContent.substring(0,len);
           fileContent=fileContent.substring(len,fileContent.length);
