@@ -31,20 +31,25 @@
   function resolve(data){
     return data.d.a.r.e;
   }
-  const encoder = new (require("jse.subpackage.encoder"))();
-  module.export = new module.package("jse.fs",class jse_fs{
-    constructor(){
-      this.fs_method={d:{a:{r:{e:{
+  const fs_method = {
         buffer:"readAsArrayBuffer",
         binary:"readAsBinaryString",
         data:"readAsDataURL",
         text:"readAsText"
-      },y:{o:{u:-1,t:0,b:"r",e:["a","k"],m:Math.E}}}}}};
-      this.fs_method=resolve(this.fs_method);
-      Object.freeze(this.fs_method,this.fs_method.buffer,this.fs_method.binary,this.fs_method.data,this.fs_method.text);
+  };
+  const encoder = new (require("jse.subpackage.encoder"))();
+  module.export = new module.package("jse.fs",class jse_fs{
+    constructor(){
+      //Object.freeze(this.fs_method,this.fs_method.buffer,this.fs_method.binary,this.fs_method.data,this.fs_method.text);
     }
     get load(){
       return get;
+    }
+    get fs_method(){
+      return fs_method;
+    }
+    set fs_method(d){
+      throw new Error("fs.fs_method cannot be overwritten");
     }
     read(file,fs_method,useEncoding){
       console.log(file);
