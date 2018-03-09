@@ -17,7 +17,6 @@ fs.readFile("build",function(err,data){
   console.log(lines);
   console.log(build_files);
   console.log(process.argv[2]==="mini");
-  console.log=()=>{}
   inter = setInterval(function(){
     if(lines.length===0)return;
     fs.readFile(lines[0],(err,data)=>{

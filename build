@@ -1,7 +1,9 @@
 js/require.js
 js/jse.base.js
+js/subpackage/jse.encoder.js
 js/JSEUTIL.js
 js/subpackage/jse.render.js
 js/subpackage/jse.thread.js
 js/subpackage/jse.image.js
 js/subpackage/jse.math.js
+js/subpackage/jse.fs.js

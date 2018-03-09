@@ -23,6 +23,7 @@ module.export=new module.package("JSE",class JSE{
     this.__framedata__={
       frameCount:0
     };
+    this.fs = new (require("jse.fs"))();
   }
   on(event,func){
     switch(event){

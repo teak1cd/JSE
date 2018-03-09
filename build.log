@@ -1,0 +1,59 @@
+[ 'js/require.js',
+  'js/jse.base.js',
+  'js/JSEUTIL.js',
+  'js/subpackage/jse.render.js',
+  'js/subpackage/jse.thread.js',
+  'js/subpackage/jse.image.js',
+  'js/subpackage/jse.math.js',
+  'js/subpackage/jse.fs.js' ]
+[ 'js/require.js',
+  'js/jse.base.js',
+  'js/JSEUTIL.js',
+  'js/subpackage/jse.render.js',
+  'js/subpackage/jse.thread.js',
+  'js/subpackage/jse.image.js',
+  'js/subpackage/jse.math.js',
+  'js/subpackage/jse.fs.js',
+  '' ]
+false
+reading file js/require.js
+{"fn":1,"txt":"js/jse.base.js"}
+reading file js/jse.base.js
+{"fn":2,"txt":"js/JSEUTIL.js"}
+reading file js/JSEUTIL.js
+{"fn":3,"txt":"js/subpackage/jse.render.js"}
+reading file js/subpackage/jse.render.js
+{"fn":4,"txt":"js/subpackage/jse.thread.js"}
+reading file js/subpackage/jse.thread.js
+{"fn":5,"txt":"js/subpackage/jse.image.js"}
+reading file js/subpackage/jse.image.js
+{"fn":6,"txt":"js/subpackage/jse.math.js"}
+reading file js/subpackage/jse.math.js
+{"fn":7,"txt":"js/subpackage/jse.fs.js"}
+reading file js/subpackage/jse.fs.js
+{"fn":-1}
+[ { fn: 1,
+    txt: '(function(){\r\nmodule=new class module{\r\n  constructor(){\r\n    window.require=(module_name)=>{\r\n      return this.modules[module_name.toLowerCase().replace(/_/g,".")].export?this.modules[module_name.toLowerCase().replace(/_/g,".")].export:Function;\r\n    };\r\n    this.modules={};\r\n  }\r\n  addModule(data){\r\n    if(data.name.toLowerCase().replace(/_/g,".")!=data.export.name.toLowerCase().replace(/_/g,".")){\r\n      throw new UnexpectedValueError("expected module class to be "+data.name.toLowerCase().replace(/_/g,".")+", got "+data.export.name.toLowerCase().replace(/_/g,"."));\r\n    }\r\n    console.log("adding module "+data.name.toLowerCase().replace(/_/g,"."));\r\n    this.modules[data.name.toLowerCase().replace(/_/g,".")]=data;\r\n  }\r\n  set export(data){\r\n    this.addModule(data);\r\n  }\r\n  set exports(data){\r\n    this.addModule(data);\r\n  }\r\n  get package(){return _module}\r\n}\r\nclass _module{\r\n  constructor(name,code){\r\n    this.name=name;\r\n    this.export=code;\r\n  }\r\n}\r\nclass UnexpectedValueError extends Error{\r\n  constructor(message){\r\n    super(message);\r\n  }\r\n}\r\nObject.freeze(_module);\r\nObject.freeze(module);\r\n})();\r\n' },
+  { fn: 2,
+    txt: '(function(module){\r\n  const DOM=document;\r\n  const WIN=window;\r\nvar nil = new class nil{\r\n  constructor(){}\r\n}\r\nmodule.export=new module.package("JSE",class JSE{\r\n  constructor(threadPath){\r\n    window.JSEGLOBAL={threadPath:threadPath};\r\n\r\n    this.fast_mode = typeof(Worker)!==\'undefined\';\r\n    this.surface= nil;\r\n    this.renderer = nil;\r\n    this.events={};\r\n    this.math=new (require("JSE.subpackage.math"))();\r\n    this.draw_loop=()=>{\r\n      WIN.requestAnimationFrame(this.draw_loop);\r\n      this.__framedata__.frameCount++;\r\n      this.events.draw=this.events.draw||[];\r\n      this.events.draw.forEach(a=>a(this.__framedata__));\r\n    }\r\n    this.on(\'load\',this.draw_loop);\r\n    this.__framedata__={\r\n      frameCount:0\r\n    };\r\n    this.fs = new (require("jse.fs"))();\r\n  }\r\n  on(event,func){\r\n    switch(event){\r\n        case "load":\r\n          WIN.addEventListener("load",func);\r\n        break;\r\n        default:\r\n          this.events[event]=this.events[event]||[];\r\n          this.events[event].push(func);\r\n        break;\r\n    }\r\n\r\n  }\r\n  createSurface(w,h,elem){\r\n    var can = DOM.createElement("canvas");\r\n    can.setAttribute("width",w+"px");\r\n    can.setAttribute("height",h+"px");\r\n    var render = require("JSE.subpackage.render");\r\n    if(elem&&elem.appendChild){\r\n      elem.appendChild(can);\r\n    }else{\r\n      DOM.body.appendChild(can);\r\n    }\r\n    this.surface=can;\r\n    this.renderer=new render(this.surface);\r\n    return this.renderer;\r\n  }\r\n});\r\n})(module);\r\n' },
+  { fn: 3,
+    txt: '(function(module){\r\n  module.export=new module.package("internal.JSEUTIL",class internal_JSEUTIL{\r\n  constructor(){\r\n\r\n  }\r\n  clarify(a,b){\r\n    var same=true;\r\n    if(a.length!=b.length)throw new Error("clarify takes 2 equil length arrays as inputs");\r\n    a.forEach((a,c)=>{if(typeof a !=b[c])same=false;});\r\n    return same;\r\n  }\r\n});\r\n})(module);\r\n' },
+  { fn: 4,
+    txt: '(function(module){\r\n  class color{\r\n    constructor(r,g,b){\r\n      if(r.constructor===this.constructor)return r;\r\n      this.r=r;\r\n      this.g=g;\r\n      this.b=b;\r\n    }\r\n    toString(){\r\n      var r = this.r.toString(16).length===2?this.r.toString(16):"0"+this.r.toString(16);\r\n      var g = this.g.toString(16).length===2?this.g.toString(16):"0"+this.g.toString(16);\r\n      var b = this.b.toString(16).length===2?this.b.toString(16):"0"+this.b.toString(16);\r\n      return "#"+r+g+b;\r\n    }\r\n  }\r\n  const DOM=document;\r\n  const WIN=window;\r\nvar nil = new class nil{\r\n  constructor(){}\r\n}\r\n  module.export=new module.package("JSE.subpackage.render",class JSE_subpackage_render{\r\n  constructor(canvas){\r\n    this.canvas=canvas;\r\n    this.context=this.canvas.getContext("2d");\r\n    this.thread = require(\'JSE.subpackage.thread\');\r\n    this.threads = [];\r\n  }\r\n  get color(){\r\n    return color;\r\n  }\r\n  background(r,g,b){\r\n    this.context.beginPath();\r\n    this.context.strokeStyle=new color(r,g,b).toString();\r\n    this.context.fillStyle=new color(r,g,b).toString();\r\n    this.context.clearRect(-1,-1,this.canvas.width+2,this.canvas.height+2)\r\n    this.context.fillRect(-1,-1,this.canvas.width+2,this.canvas.height+2);\r\n    return this;\r\n  }\r\n  shader(shader){\r\n    var data = this.ctx.getImageData(0,0,this.canvas.width,this.canvas.height);\r\n    var thr = new this.thread("post.js",function(...args){console.log(args);});\r\n\r\n    this.threads.push(thr);\r\n    thr.post([shader.toString(),data]);\r\n    return thr;\r\n  }\r\n  fillColor(r,g,b){\r\n    this.context.fillStyle=new color(r,g,b).toString();\r\n  }\r\n  strokeColor(r,g,b){\r\n    this.context.strokeStyle();\r\n  }\r\n  fill(){\r\n    this.context.fill();\r\n  }\r\n  stroke(){\r\n    this.context.fill();\r\n  }\r\n  rect(x,y,w,h){\r\n    this.context.rect(x,y,w,h);\r\n  }\r\n  fillRect(x,y,w,h){\r\n    this.rect(x,y,w,h);\r\n    this.fill();\r\n  }\r\n  clip(path,fillrule){\r\n    this.context.clip.call(path,fillrule);\r\n  }\r\n  arc(x,y,radius, startAngle, endAngle, anticlockwise){\r\n    this.ctx.arc(x,y,radius,startAngle,endAngle,anticlockwise);\r\n  }\r\n\r\n  get ctx(){\r\n    return this.context;\r\n  }\r\n  get cImage(){\r\n    return require("jse.subpackage.image");\r\n  }\r\n  image(image,x,y,w,h,sx,sy,sw,sh){\r\n\r\n    if(arguments.length===5){\r\n      this.context.drawImage(image,x,y,w,h);\r\n    }else if(arguments.length===8){\r\n      this.context.drawImage(image,x,y,w,h,sx,sy,sw,sh);\r\n    }else{\r\n      throw new UnexpectedArgumentsLength(arguments.length);\r\n    }\r\n  }\r\n});\r\n})(module);\r\n' },
+  { fn: 5,
+    txt: '(function(module){\r\n  module.export=new module.package("JSE.subpackage.thread",class jse_subpackage_thread{\r\n  constructor(file,callback){\r\n    this.callback=callback||function(){}\r\n    this.fp = JSEGLOBAL.threadPath+file;\r\n    this.worker=new Worker(this.fp);\r\n    this.worker.onmessage=(message)=>{\r\n      this.callback(message.data)\r\n    };\r\n    this.worker.onerror=(error)=>{\r\n      throw error;\r\n    }\r\n  }\r\n  post(message){\r\n    this.worker.postMessage(message);\r\n  }\r\n  terminate(){\r\n    this.worker.terminate();\r\n  }\r\n});\r\n})(module);\r\n' },
+  { fn: 6,
+    txt: '(function(module){\r\n  const DOM=document;\r\n  const WIN=window;\r\n  module.export=new module.package("jse.subpackage.image",class JSE_subpackage_Image{\r\n  constructor(src){\r\n    this.element=DOM.createElement("image");\r\n    this.element.src=src||"";\r\n  }\r\n});\r\n})(module);\r\n' },
+  { fn: 7,
+    txt: '(function(module){\r\n  const util = new (require("internal.JSEUTIL"))();\r\n  class Vector2{\r\n    constructor(x,y){\r\n      if(util.clarify([x,y],["number","number"]))return null;\r\n      this.x=x;\r\n      this.y=y;\r\n    }\r\n  }\r\n  class Vector3{\r\n    constructor(){\r\n      if(util.clarify([x,y,z],["number","number","number"]))return null;\r\n      this.x=x;\r\n      this.y=y;\r\n      this.z=z;\r\n    }\r\n  }\r\n  module.exports=new module.package("JSE.subpackage.math",class jse_subpackage_math{\r\n  constructor(){\r\n      this.psrand_seed=Date.now();\r\n  }\r\n  setRandSeed(seed){\r\n    this.psrand_seed=seed;\r\n  }\r\n  get Vector2(){\r\n    return Vector2;\r\n  }\r\n  get Vector3(){\r\n    return Vector3;\r\n  }\r\n});\r\n})(module);\r\n' },
+  { fn: -1,
+    txt: '(function(module){\r\n  function get(filePath,fs_LoadMethod){\r\n    return fetch(filePath).then(\r\n      (data)=>{\r\n        return data.blob();\r\n      }\r\n    ).then(\r\n      (data)=>{\r\n        var reader = new FileReader();\r\n        reader[fs_LoadMethod](data);\r\n        return new Promise((resolve,reject)=>{\r\n          reader.onload=()=>{\r\n            resolve(reader.result);\r\n          }\r\n        });\r\n      }\r\n    );\r\n  }\r\n  function download(filename, text) {\r\n    var element = document.createElement(\'a\');\r\n    element.setAttribute(\'href\', \'data:text/plain;charset=utf-8,\' + encodeURIComponent(text));\r\n    element.setAttribute(\'download\', filename);\r\n    element.style.display = \'none\';\r\n    document.body.appendChild(element);\r\n    element.click();\r\n    document.body.removeChild(element);\r\n  }\r\n  function save(filename,text){\r\n    download(filename,text);\r\n  }\r\n  module.export = new module.package("jse.fs",class jse_fs{\r\n    constructor(){\r\n      this.fs_method={\r\n        buffer:"readAsArrayBuffer",\r\n        binary:"readAsBinaryString",\r\n        data:"readAsDataURL",\r\n        text:"readAsText"\r\n      };\r\n      Object.freeze(this.fs_method,this.fs_method.buffer,this.fs_method.binary,this.fs_method.data,this.fs_method.text);\r\n    }\r\n    get load(){\r\n      return get;\r\n    }\r\n    read(file,fs_method){\r\n      console.log(file);\r\n      var block = file.blob();\r\n      var reader = new FileReader();\r\n      reader[fs_LoadMethod](data);\r\n      return new Promise((resolve,reject)=>{\r\n        reader.onload=()=>{\r\n          resolve(reader.result);\r\n        }\r\n      });\r\n    }\r\n    promptLoad(accept="*"){\r\n      var el = document.createElement("input");\r\n      el.setAttribute("type","file");\r\n      el.setAttribute("accept",accept);\r\n      el.setAttribute("style","opacity:0");\r\n      document.body.appendChild(el);\r\n      el.click();\r\n      var file = el.files;\r\n      return new Promise((resolve,reject)=>{\r\n        el.onchange=()=>{\r\n          var file = el.files[0];\r\n          let fr = new FileReader();\r\n          fr.onloadend=(p)=>{\r\n            if(p.loaded===p.total&&fr.DONE===2){\r\n              resolve(fr.result);\r\n              document.body.removeChild(el);\r\n            }\r\n          };\r\n        fr.readAsText(file);\r\n        };\r\n      });\r\n    }\r\n    loadJSON(fn){\r\n      return this.load(fn,this.fs_method.text).then(a=>JSON.parse(a));\r\n    }\r\n    get save(){\r\n      return save;\r\n    }\r\n  })\r\n})(module)\r\n' } ]
+-1
+1
+2
+3
+4
+5
+6
+7
+done!

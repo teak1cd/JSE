@@ -1,0 +1,6 @@
+{
+  "version":0,
+  "opperation":[
+    {"type":"color","base":255,"opperation":"sub"}
+  ]
+}
