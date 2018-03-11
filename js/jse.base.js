@@ -4,10 +4,28 @@
 var nil = new class nil{
   constructor(){}
 }
+function checkDependencies(data){
+  if(module){
+    let modules = module.modules;
+    for(var i = 0;i<data.length;i++){
+      if(!modules[data[i]])
+      {
+        console.log(modules)
+        throw new Error("module "+data[i]+" not found");
+      }
+    }
+  }else{
+    throw new Error("module not found, this may be an error if you are using node.js");
+  }
+};
 module.export=new module.package("JSE",class JSE{
   constructor(threadPath){
     window.JSEGLOBAL={threadPath:threadPath};
-
+    this.fs = new (require("jse.fs"))();
+    this.engine_data = this.fs.loadJSON("files/engine_data.json").then((data)=>{
+      this.engine_data=data;
+      checkDependencies(data.$min);
+    });
     this.fast_mode = typeof(Worker)!=='undefined';
     this.surface= nil;
     this.renderer = nil;

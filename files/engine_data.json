@@ -1,0 +1,17 @@
+{
+    "$schema": 0,
+    "$version":0,
+    "$min":[
+        "jse",
+        "internal.jseutil",
+        "jse.fs",
+        "jse.subpackage.encoder",
+        "jse.subpackage.image",
+        "jse.subpackage.math",
+        "jse.subpackage.render",
+        "jse.subpackage.thread"
+    ],
+    "$extras":[
+        
+    ]
+}

@@ -1,6 +1,7 @@
 const JSE = require("JSE");
 const engine = new JSE("js/thread/");
 const fs = engine.fs;
+const text_encoder = new (require("jse.subpackage.encoder"))();
 let render,shader;
 engine.on('load',function(){
   render = engine.createSurface(720,480,custom_canvas_loc);

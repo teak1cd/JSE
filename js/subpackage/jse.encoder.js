@@ -14,10 +14,13 @@
         chars.forEach((a)=>{
           vals.push(Math.pow(a.charCodeAt(0),this.redux));
         });
-        var out="";
+        var off=Date.now();
+        var out=off.toString(16);
+        while(out.length<30){
+          out="0"+out;
+        }
         vals.forEach((a,b)=>{
-            a+=b;
-            console.log(a);
+            a+=b+off;
           var b16=a.toString(16);
           var len=b16.length.toString(16);
           if(len.length===1)len="0"+len;
@@ -33,7 +36,7 @@
           return r;
         }
         var out = "";
-        var char = 0;
+        var char = parseInt(Grab(30),16);
         while(fileContent.length>0){
           var len = Grab(2);
           var content = Grab(parseInt(len,16));

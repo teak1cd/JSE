@@ -2,7 +2,9 @@
 module=new class module{
   constructor(){
     window.require=(module_name)=>{
-      return this.modules[module_name.toLowerCase().replace(/_/g,".")].export?this.modules[module_name.toLowerCase().replace(/_/g,".")].export:Function;
+      if(this.modules[module_name.toLowerCase().replace(/_/g,".")]){
+        return this.modules[module_name.toLowerCase().replace(/_/g,".")].export?this.modules[module_name.toLowerCase().replace(/_/g,".")].export:Function;
+      }
     };
     this.modules={};
   }
