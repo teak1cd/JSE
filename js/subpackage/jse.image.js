@@ -3,8 +3,10 @@
   const WIN=window;
   module.export=new module.package("jse.subpackage.image",class JSE_subpackage_Image{
   constructor(src){
-    this.element=DOM.createElement("image");
-    this.element.src=src||"";
+    this.elementImg=DOM.createElement("image");
+    this.elementImg.src=src||"";
+    this.elementCanvas=DOM.createElement("canvas");
+    this.elementCanvas
   }
 });
 })(module);
